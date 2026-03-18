@@ -1,0 +1,40 @@
+body {
+  margin: 0;
+  height: 100vh;
+  background: #ffffff;
+  overflow: hidden;
+}
+
+.bg-logo {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  opacity: 1;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  pointer-events: none;
+  will-change: transform;
+  animation:
+    zoomIn 10s ease-out forwards,
+    slowRotate 240s linear infinite 11s;
+}
+
+@keyframes zoomIn {
+  0% {
+    transform: translate(-50%, -50%) scale(0.01);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(0.3);
+    opacity: 1;
+  }
+}
+
+@keyframes slowRotate {
+  from {
+    transform: translate(-50%, -50%) scale(0.3) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) scale(0.3) rotate(360deg);
+  }
+}
