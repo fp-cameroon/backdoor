@@ -13,6 +13,8 @@ const logo = document.querySelector('.bg-logo');
 const loginBox = document.querySelector('.login-box');
 const goBtn = document.querySelector('.go-btn');
 
+logo.classList.add('animated');
+
 function openLogin() {
     // remove initial listeners
     window.removeEventListener('click', openLogin);

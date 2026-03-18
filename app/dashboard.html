@@ -1,16 +1,72 @@
-<!doctype html>
-<html lang="fr">
+<!DOCTYPE html>
+<html>
 <head>
-  <meta charset="utf-8">
-  <title>Redirecting…</title>
-  <meta name="robots" content="noindex">
-  <meta http-equiv="refresh" content="0; url=404.html">
+  <title>Admin Orders</title>
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/index.css">
+  <link href="https://fonts.googleapis.com/css?family=Poppins">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
-<body>
-  <noscript>
-    <p>
-      <a href="404.html">index</a>
-    </p>
-  </noscript>
+<body  data-protected="true">
+
+<img src="static/logo.svg" class="bg-logo" />
+
+<div class="header">
+  <div class="header-left">
+    <strong>Backdoor</strong>
+    <span class="user">[<span id="user-name"></span>]</span>
+  </div>
+
+  <div class="header-right">
+    <span><i class="fa-solid fa-clock"></i></span>
+    <span id="currentTime"></span>
+    <span id="logout"><i class="fas fa-sign-out"></i></span>
+  </div>
+</div>
+
+<div class="container">
+
+    <h1>Orders</h1>
+
+  <!-- Filters -->
+  <div class="filters">
+    <input type="text" id="filterUser" placeholder="Customer ID">
+
+    <select id="filterStatus">
+      <option value="">All Status</option>
+      <option value="pending">Pending</option>
+      <option value="processing">Processing</option>
+      <option value="shipped">Shipped</option>
+    </select>
+
+    <button onclick="applyFilters()">Filter</button>
+  </div>
+
+  <!-- Table -->
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>User</th>
+        <th>Status</th>
+        <th>Date</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+
+    <tbody id="ordersTable"></tbody>
+  </table>
+
+  <!-- Pagination -->
+  <div class="pagination">
+    <button id="prevPage">Prev</button>
+    <span id="pageInfo"></span>
+    <button id="nextPage">Next</button>
+  </div>
+
+</div>
+
+<script type="module" src="js/guard.js"></script>
+<script type="module" src="js/dashboard.js"></script>
 </body>
 </html>
