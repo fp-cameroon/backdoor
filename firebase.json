@@ -1,6 +1,7 @@
 {
   "hosting": {
     "public": "app",
+    "target": "backdoor",
     "ignore": [
       "firebase.json",
       "**/.*",

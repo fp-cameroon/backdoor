@@ -1,4 +1,5 @@
-ENVIRONMENT ?=dev
+ENVIRONMENT ?= production
+FB_PROJECT ?= fp-cameroon
 DN ?= studio-$(ENVIRONMENT).fp-cameroon.com
 CDN_ZONE ?= e12a5207c887608d69a76c72c0c22346
 CDN_API_TOKEN ?=
@@ -13,7 +14,7 @@ cook:
 
 set-project:
 	@echo "-> switching project"
-	@firebase use $(ENVIRONMENT)-fp-cameroon
+	@firebase use $(FB_PROJECT)
 	@echo "😁 done"
 
 .deploy:
