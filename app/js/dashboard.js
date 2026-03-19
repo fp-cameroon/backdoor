@@ -3,18 +3,19 @@ let filtered = [];
 let currentPage = 1;
 const pageSize = 5;
 
-import { db, auth } from "./firebase-config.js";
+import { auth } from "./firebase-config.js";
+import { sendOrder, cancelOrder, loadOrders } from "./firestore.js";
 import { collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 import { signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-async function loadOrders(db) {
-  const snap = await getDocs(collection(db, "orders"));
-  orders = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+
+async function fetchOrders(db) {
+  orders = await loadOrders();
   filtered = [...orders];
   renderTable();
 }
 
-filtered = [...orders];
+await fetchOrders();
 
 function renderTable() {
 
@@ -29,31 +30,50 @@ function renderTable() {
 
     row.innerHTML = `
       <td>${o.id}</td>
-      <td>${o.userId}</td>
+      <td>${o.userEmail}</td>
       <td><span class="badge ${o.status}">${o.status}</span></td>
-      <td>${new Date(o.createdAt).toLocaleDateString()}</td>
+      <td>${o.createdAt.toDate().toLocaleString()}</td>
       <td>
-        <button class="send" onclick="send('${o.id}')">Send</button>
-        <button class="delete" onclick="remove('${o.id}')">Delete</button>
+        <button class="send" data-id="${o.id}">Send</button>
+        <button class="delete" data-id="${o.id}">Delete</button>
       </td>
     `;
     table.appendChild(row);
+      // attach events AFTER rendering
+      document.querySelectorAll(".send").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+          const id = e.target.dataset.id;
+          sendOrder(id);
+        });
+      });
+
+      document.querySelectorAll(".delete").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+          const id = e.target.dataset.id;
+          cancelOrder(id);
+        });
+      });
   });
   document.getElementById("pageInfo").innerText =
-    `Page ${currentPage-1} / ${Math.ceil(filtered.length / pageSize)}`;
+    `Page ${currentPage} / ${Math.floor(filtered.length / pageSize)+1}`;
 }
 
 function applyFilters() {
   const user = document.getElementById("filterUser").value;
   const status = document.getElementById("filterStatus").value;
+  console.log(user, status, orders)
   filtered = orders.filter(o => {
-    return (!user || o.userId.includes(user)) &&
+    console.log(o.userEmail.includes(user), o.status === status);
+    return (!user || o.userEmail.includes(user)) &&
            (!status || o.status === status);
   });
   currentPage = 1;
   renderTable();
 }
 
+document.getElementById("filterBtn").addEventListener("click", (e) => {
+  applyFilters();
+});
 
 document.getElementById("nextPage").onclick = async () => {
   if (currentPage * pageSize < filtered.length) {
@@ -69,16 +89,6 @@ document.getElementById("prevPage").onclick = async () => {
   }
 }
 
-
-function send(id) {
-  console.log("Send to factory:", id);
-}
-
-function remove(id) {
-  orders = orders.filter(o => o.id !== id);
-  applyFilters();
-}
-
 renderTable();
 
 document.getElementById("logout").onclick = async () => {
@@ -86,9 +96,8 @@ document.getElementById("logout").onclick = async () => {
   window.location.href = "index.html";
 }
 
-function updateTime() {
+function updateClock() {
   const now = new Date();
-
   const formatted = now.toLocaleTimeString([], {
     hour: '2-digit',
     minute: '2-digit'
@@ -98,5 +107,5 @@ function updateTime() {
 }
 
 // update every second
-setInterval(updateTime, 60000);
-updateTime();
+setInterval(updateClock, 60000);
+updateClock();
