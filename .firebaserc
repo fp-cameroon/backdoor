@@ -3,7 +3,7 @@
     "default": "staging-fp-cameroon"
   },
   "targets": {
-    "fp-cameroon": {
+    "staging-fp-cameroon": {
       "hosting": {
         "backdoor": [
           "staging-fp-cameroon-backdoor"
