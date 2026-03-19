@@ -1,33 +1,16 @@
 {
   "hosting": {
     "public": "app",
-    "target": "backdoor",
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
     ],
-    "headers": [
+    "rewrites": [
       {
-        "source": "**/*.@(png|jpg|jpeg|gif|svg|webp|woff|woff2)",
-        "headers": [
-          {
-            "key": "Cache-Control",
-            "value": "public,max-age=14400"
-          }
-        ]
-      },
-      {
-        "source": "**/*.@(html|js|css)",
-        "headers": [
-          {
-            "key": "Cache-Control",
-            "value": "no-cache, no-store, must-revalidate"
-          }
-        ]
+        "source": "**",
+        "destination": "/index.html"
       }
-    ],
-    "cleanUrls": true,
-    "trailingSlash": false
+    ]
   }
 }
