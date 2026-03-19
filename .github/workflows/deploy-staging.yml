@@ -10,7 +10,7 @@ on:
 
 env:
   ENVIRONMENT: production
-  PROJECT: fp-cameroon
+  PROJECT: staging-fp-cameroon
 
 jobs:
   build_and_deploy:

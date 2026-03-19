@@ -8,8 +8,8 @@ on:
       - firebase.json
       - .github/workflows/deploy-production.yml
 env:
-  ENVIRONMENT: staging
-  PROJECT: staging-fp-cameroon
+  ENVIRONMENT: production
+  PROJECT: fp-cameroon
 
 jobs:
   build_and_deploy:
