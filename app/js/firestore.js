@@ -5,11 +5,11 @@ import { collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/
 const ordersRef = collection(db, "orders");
 
 async function sendOrder(orderId) {
-  alert(`Order ${orderId}: send to factory not implemented yet 🚧`);
+  alert(`Order ${orderId}: send not implemented yet`);
 }
 
 async function cancelOrder(orderId) {
-  alert(`Order ${orderId}: cancel order not implemented yet 🚧`);
+  alert(`Order ${orderId}: cancel not implemented yet`);
 }
 
 async function loadOrders(db) {

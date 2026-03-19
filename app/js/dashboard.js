@@ -41,17 +41,17 @@ function renderTable() {
     table.appendChild(row);
       // attach events AFTER rendering
       document.querySelectorAll(".send").forEach(btn => {
-        btn.addEventListener("click", (e) => {
+        btn.onclick = async (e) => {
           const id = e.target.dataset.id;
           sendOrder(id);
-        });
+        };
       });
 
       document.querySelectorAll(".delete").forEach(btn => {
-        btn.addEventListener("click", (e) => {
+        btn.onclick = async (e) => {
           const id = e.target.dataset.id;
           cancelOrder(id);
-        });
+        };
       });
   });
   document.getElementById("pageInfo").innerText =
@@ -61,9 +61,7 @@ function renderTable() {
 function applyFilters() {
   const user = document.getElementById("filterUser").value;
   const status = document.getElementById("filterStatus").value;
-  console.log(user, status, orders)
   filtered = orders.filter(o => {
-    console.log(o.userEmail.includes(user), o.status === status);
     return (!user || o.userEmail.includes(user)) &&
            (!status || o.status === status);
   });
@@ -74,6 +72,11 @@ function applyFilters() {
 document.getElementById("filterBtn").addEventListener("click", (e) => {
   applyFilters();
 });
+
+document.getElementById("refreshBtn").addEventListener("click", (e) => {
+    location.reload()
+});
+
 
 document.getElementById("nextPage").onclick = async () => {
   if (currentPage * pageSize < filtered.length) {
