@@ -1,7 +1,7 @@
 let orders = [];       // fetched from Firestore
 let filtered = [];
 let currentPage = 1;
-const pageSize = 5;
+const pageSize = 10;
 
 import { auth } from "./firebase-config.js";
 import { sendOrder, cancelOrder, loadOrders } from "./firestore.js";
