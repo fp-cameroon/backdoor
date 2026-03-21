@@ -11,6 +11,8 @@ on:
 env:
   ENVIRONMENT: staging
   PROJECT: staging-fp-cameroon
+  CDN_ZONE: e12a5207c887608d69a76c72c0c22346
+  DN: studio-staging.fp-cameroon.com
 
 jobs:
   build_and_deploy:
@@ -25,3 +27,5 @@ jobs:
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_STAGING_FP_CAMEROON }}
           channelId: live
           projectId: ${{ env.PROJECT }}
+      - name: Clear CDN cache
+        run: make purge
